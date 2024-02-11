@@ -1,0 +1,40 @@
+name: Refresh ArgoCD Application files
+
+on:
+  workflow_dispatch:
+    inputs:
+        production_release:
+          description: Production Release
+          required: true
+
+jobs:
+  refresh-argocd:
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_TAG: ${{ inputs.production_release }}
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Generate Helm Templates
+      run: |
+        for file in environments/*.yaml; do
+          if [ "$file" != "environments/prod-values.yaml" ]; then
+            env=$(basename $file .yaml | cut -d'-' -f1)
+            output_file="$env-argocd.yaml"
+            helm template test --values $file global-argocd-app > argocd/nonprod/$output_file
+          fi
+        done
+        mkdir -p argocd/prod
+        helm template test --values environments/prod-values.yaml --set release=${{ env.RELEASE_TAG }} global-argocd-app > argocd/prod/prod-argocd.yaml
+
+    - name: Commit and Push Changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add global-argocd-app/values.yaml
+        git add argocd/
+        git commit -m "Refresh ArgoCD application files" || exit 0
+        git push
+
+  
