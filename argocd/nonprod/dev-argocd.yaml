@@ -8,10 +8,10 @@ metadata:
 spec:
   destination:
     server: "https://kubernetes.default.svc" 
-    namespace: dev-namespace
+    namespace: dev-ngil
   project: default
   source:
-    repoURL: 'https://github.com/BENMALEKarim/argocd-helm/'
+    repoURL: 'https://github.com/BENMALEKarim/helm-charts/'
     path: 'apps/mock-authentication'
     targetRevision: 'main'
     helm:
@@ -34,10 +34,10 @@ metadata:
 spec:
   destination:
     server: "https://kubernetes.default.svc" 
-    namespace: dev-namespace
+    namespace: dev-ngil
   project: default
   source:
-    repoURL: 'https://github.com/BENMALEKarim/argocd-helm/'
+    repoURL: 'https://github.com/BENMALEKarim/helm-charts/'
     path: 'apps/mock-frontend'
     targetRevision: 'main'
     helm:
@@ -60,10 +60,10 @@ metadata:
 spec:
   destination:
     server: "https://kubernetes.default.svc" 
-    namespace: dev-namespace
+    namespace: dev-ngil
   project: default
   source:
-    repoURL: 'https://github.com/BENMALEKarim/argocd-helm/'
+    repoURL: 'https://github.com/BENMALEKarim/helm-charts/'
     path: 'apps/mock-payment'
     targetRevision: 'main'
     helm:
