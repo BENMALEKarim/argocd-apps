@@ -10,7 +10,7 @@ spec:
     namespace: {{ $.Values.namespace }}
   project: default
   source:
-    repoURL: 'https://github.com/BENMALEKarim/argocd-helm/'
+    repoURL: 'https://github.com/BENMALEKarim/helm-charts/'
     path: 'apps/{{ . }}'
     {{- if eq $.Values.environment "prod" }}
     targetRevision: {{ $.Values.release }}
