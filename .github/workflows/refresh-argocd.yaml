@@ -22,11 +22,11 @@ jobs:
           if [ "$file" != "environments/prod-values.yaml" ]; then
             env=$(basename $file .yaml | cut -d'-' -f1)
             output_file="$env-argocd.yaml"
-            helm template test --values $file global-argocd-app > argocd/nonprod/$output_file
+            helm template test --values $file argocd-application-chart > argocd/nonprod/$output_file
           fi
         done
         mkdir -p argocd/prod
-        helm template test --values environments/prod-values.yaml --set release=${{ env.RELEASE_TAG }} global-argocd-app > argocd/prod/prod-argocd.yaml
+        helm template test --values environments/prod-values.yaml --set release=${{ env.RELEASE_TAG }} argocd-application-chart > argocd/prod/prod-argocd.yaml
 
     - name: Commit and Push Changes
       run: |

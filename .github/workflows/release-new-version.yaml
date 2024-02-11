@@ -21,7 +21,7 @@ jobs:
         ref: main
     - name: Generate Helm Templates
       run: |
-        helm template test --values environments/prod-values.yaml --set release=${{ env.RELEASE_TAG }} global-argocd-app > argocd/prod/prod-argocd.yaml
+        helm template test --values environments/prod-values.yaml --set release=${{ env.RELEASE_TAG }} argocd-application-chart > argocd/prod/prod-argocd.yaml
 
     - name: Commit and Push Changes
       run: |
