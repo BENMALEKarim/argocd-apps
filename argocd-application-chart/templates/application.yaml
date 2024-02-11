@@ -15,7 +15,7 @@ spec:
     {{- if eq $.Values.environment "prod" }}
     targetRevision: {{ $.Values.release }}
     {{- else }}
-    targetRevision: 'main'
+    targetRevision: 'master'
     {{- end }}
     helm:
       valueFiles:
