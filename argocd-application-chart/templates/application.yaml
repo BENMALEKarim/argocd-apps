@@ -12,7 +12,7 @@ spec:
   source:
     repoURL: 'https://github.com/BENMALEKarim/helm-charts/'
     path: 'apps/{{ . }}'
-    {{- if or (eq $.Values.environment "prod") (q $.Values.environment "pps") }}
+    {{- if or (eq $.Values.environment "prod") (eq $.Values.environment "pps") }}
     targetRevision: {{ $.Values.release }}
     {{- else }}
     targetRevision: 'master'
