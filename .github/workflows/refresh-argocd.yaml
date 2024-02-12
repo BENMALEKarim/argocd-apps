@@ -21,12 +21,13 @@ jobs:
     - name: Generate Helm Templates
       run: |
         for file in environments/*.yaml; do
-          if [ "$file" != "environments/prod-values.yaml" ]; then
+          if [ "$file" != "environments/prod-values.yaml" ] && [ "$file" != "environments/pps-values.yaml" ]; then
             env=$(basename $file .yaml | cut -d'-' -f1)
             output_file="$env-argocd.yaml"
             helm template test --values $file argocd-application-chart > argocd/nonprod/$output_file
           fi
         done
+        helm template test --values environments/pps-values.yaml --set release=${{ env.RELEASE_TAG }} argocd-application-chart > argocd/nonprod/pps-argocd.yaml
         mkdir -p argocd/prod
         helm template test --values environments/prod-values.yaml --set release=${{ env.RELEASE_TAG }} argocd-application-chart > argocd/prod/prod-argocd.yaml
 
