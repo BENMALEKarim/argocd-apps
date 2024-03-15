@@ -1,0 +1,62 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: bulk-apps
+  namespace: argocd
+spec:
+  generators:
+      - list:
+          elements:
+          - application: test1
+          - application: test2
+          - application: test3
+          - application: test4
+          - application: test5
+          - application: test6
+          - application: test7
+          - application: test8
+          - application: test9
+          - application: test10
+          - application: test11
+          - application: test12
+          - application: test13
+          - application: test14
+          - application: test15
+          - application: test16
+          - application: test17
+          - application: test18
+          - application: test19
+          - application: test20
+          - application: test21
+          - application: test22
+          - application: test23
+          - application: test24
+          - application: test25
+          - application: test26
+          - application: test27
+          - application: test28
+          - application: test29
+          - application: test30 
+  template:
+    metadata:
+      name: '{{application}}'
+      namespace: argocd
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/BENMALEKarim/helm-charts/
+        targetRevision: master
+        path: 'apps/mock-authentication'
+        helm:
+          valueFiles:
+          - '/environments/dev-values.yaml'
+          - '/apps/mock-authentication/environments/dev-values.yaml'
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: dev-ngil
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true 
+        syncOptions:
+          - CreateNamespace=true
