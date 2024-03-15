@@ -51,6 +51,9 @@ spec:
           valueFiles:
           - '/environments/dev-values.yaml'
           - '/apps/mock-authentication/environments/dev-values.yaml'
+          parameters:
+          - name: appName
+            value: '{{application}}'
       destination:
         server: https://kubernetes.default.svc
         namespace: dev-ngil
