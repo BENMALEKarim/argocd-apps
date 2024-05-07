@@ -1,0 +1,24 @@
+---
+# Source: global-argocd-app/templates/application.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mock-authentication-feature-f111-dev
+  namespace: argocd
+spec:
+  destination:
+    server: "https://kubernetes.default.svc" 
+    namespace: dev
+  project: default
+  source:
+    repoURL: https://github.com/BENMALEKarim/mock-authentication.git
+    path: helm/
+    targetRevision: feature/F111
+    helm:
+      releaseName: mock-authentication-feature-f111-dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
