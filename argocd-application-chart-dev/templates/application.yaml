@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: {{ .Values.appName }}-dev
+  name: {{ .Values.appName }}-{{ .Values.environment }}
   namespace: argocd
 spec:
   destination:
@@ -10,10 +10,15 @@ spec:
   project: default
   source:
     repoURL: {{ .Values.repoUrl }}
-    path: helm/
+    path: {{ .Values.path }}
     targetRevision: {{ .Values.branch }}
     helm:
-      releaseName: {{ .Values.appName }}-dev
+      releaseName: {{ .Values.appName }}-{{ .Values.environment }}
+      {{- if ne .Values.environment "dev" }}
+      valueFiles:
+        - '/environments/{{ .Values.environment }}-values.yaml'
+        - '/apps/{{ .Values.appName }}/environments/{{ .Values.environment }}-values.yaml'
+      {{- end }}
   syncPolicy:
     automated:
       prune: true
