@@ -18,7 +18,7 @@ spec:
       valueFiles:
         - '/environments/dev-values.yaml'
         - '/apps/mock-authentication/environments/dev-values.yaml'
-      parametters:
+      parameters:
         appName: mock-authentication-feature-a213
   syncPolicy:
     automated:
