@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  {{- if .Values.environment "dev" }}
+  {{- if eq .Values.environment "dev" }}
   name: {{ .Values.appName }}-{{ .Values.fromattedBranch }}-{{ .Values.environment }}
   {{- else }}
   name: {{ .Values.appName }}-{{ .Values.environment }}
@@ -20,7 +20,7 @@ spec:
       valueFiles:
         - '/environments/{{ .Values.environment }}-values.yaml'
         - '/apps/{{ .Values.appName }}/environments/{{ .Values.environment }}-values.yaml'
-      {{- if .Values.environment "dev" }}
+      {{- if eq .Values.environment "dev" }}
       valuesObject:
         appName: {{ .Values.appName }}-{{ .Values.fromattedBranch }}
       {{- end }}
