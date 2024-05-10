@@ -1,7 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
+  {{- if .Values.environment "dev" }}
+  name: {{ .Values.appName }}-{{ .Values.fromattedBranch }}-{{ .Values.environment }}
+  {{- else }}
   name: {{ .Values.appName }}-{{ .Values.environment }}
+  {{- end }}
   namespace: argocd
 spec:
   destination:
@@ -9,15 +13,16 @@ spec:
     namespace: {{ .Release.Namespace }}
   project: default
   source:
-    repoURL: {{ .Values.repoUrl }}
-    path: {{ .Values.path }}
+    repoURL: 'https://github.com/BENMALEKarim/helm-charts/'
+    path: 'apps/{{ .Values.appName }}'
     targetRevision: {{ .Values.branch }}
     helm:
-      releaseName: {{ .Values.appName }}-{{ .Values.environment }}
-      {{- if ne .Values.environment "dev" }}
       valueFiles:
         - '/environments/{{ .Values.environment }}-values.yaml'
         - '/apps/{{ .Values.appName }}/environments/{{ .Values.environment }}-values.yaml'
+      {{- if .Values.environment "dev" }}
+      valuesObject:
+        appName: {{ .Values.appName }}-{{ .Values.fromattedBranch }}
       {{- end }}
   syncPolicy:
     automated:
