@@ -22,7 +22,7 @@ spec:
         - '/apps/{{ .Values.appName }}/environments/{{ .Values.environment }}-values.yaml'
       {{- if eq .Values.environment "dev" }}
       valuesObject:
-        appName: {{ .Values.appName }}-{{ .Values.fromattedBranch }}
+        appName: {{ .Values.appName }}-{{ .Values.formattedBranch }}
       {{- end }}
   syncPolicy:
     automated:
