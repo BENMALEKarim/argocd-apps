@@ -20,7 +20,7 @@ spec:
         - '/apps/mock-authentication/environments/dev-values.yaml'
       parameters:
         - name: appName
-        - value: mock-authentication-feature-a213
+          value: mock-authentication-feature-a213
   syncPolicy:
     automated:
       prune: true
