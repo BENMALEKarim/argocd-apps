@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   {{- if eq .Values.environment "dev" }}
-  name: {{ .Values.appName }}-{{ .Values.fromattedBranch }}-{{ .Values.environment }}
+  name: {{ .Values.appName }}-{{ .Values.formattedBranch }}-{{ .Values.environment }}
   {{- else }}
   name: {{ .Values.appName }}-{{ .Values.environment }}
   {{- end }}
