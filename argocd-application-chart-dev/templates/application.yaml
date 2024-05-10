@@ -21,7 +21,7 @@ spec:
         - '/environments/{{ .Values.environment }}-values.yaml'
         - '/apps/{{ .Values.appName }}/environments/{{ .Values.environment }}-values.yaml'
       {{- if eq .Values.environment "dev" }}
-      valuesObject:
+      parametters:
         appName: {{ .Values.appName }}-{{ .Values.formattedBranch }}
       {{- end }}
   syncPolicy:
