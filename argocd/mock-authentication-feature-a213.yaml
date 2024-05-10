@@ -1,0 +1,29 @@
+---
+# Source: global-argocd-app/templates/application.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mock-authentication-feature-a213-dev
+  namespace: argocd
+spec:
+  destination:
+    server: "https://kubernetes.default.svc" 
+    namespace: dev
+  project: default
+  source:
+    repoURL: 'https://github.com/BENMALEKarim/helm-charts/'
+    path: 'apps/mock-authentication'
+    targetRevision: feature/A213
+    helm:
+      valueFiles:
+        - '/environments/dev-values.yaml'
+        - '/apps/mock-authentication/environments/dev-values.yaml'
+      parameters:
+        - name: appName
+          value: mock-authentication-feature-a213
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
