@@ -1,0 +1,26 @@
+---
+# Source: global-argocd-app/templates/application.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mock-authentication-nstg
+  namespace: argocd
+spec:
+  destination:
+    server: "https://kubernetes.default.svc" 
+    namespace: nstg
+  project: default
+  source:
+    repoURL: 'https://github.com/BENMALEKarim/helm-charts/'
+    path: 'apps/mock-authentication'
+    targetRevision: v1.0.0
+    helm:
+      valueFiles:
+        - '/environments/nstg-values.yaml'
+        - '/apps/mock-authentication/environments/nstg-values.yaml'
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - CreateNamespace=true
