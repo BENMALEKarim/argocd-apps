@@ -13,7 +13,7 @@ spec:
   source:
     repoURL: 'https://github.com/BENMALEKarim/helm-charts/'
     path: 'apps/mock-authentication'
-    targetRevision: develop
+    targetRevision: v1.0.0
     helm:
       valueFiles:
         - '/environments/nstg-values.yaml'
