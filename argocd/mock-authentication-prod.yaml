@@ -7,13 +7,13 @@ metadata:
   namespace: argocd
 spec:
   destination:
-    server: "https://kubernetes.default.svc" 
+    server: "https://kubernetes.default.svc"
     namespace: prod
   project: default
   source:
     repoURL: 'https://github.com/BENMALEKarim/helm-charts/'
     path: 'apps/mock-authentication'
-    targetRevision: v1.0.0
+    targetRevision: v1.0.1
     helm:
       valueFiles:
         - '/environments/prod-values.yaml'
@@ -23,4 +23,4 @@ spec:
       prune: true
       selfHeal: true
     syncOptions:
-    - CreateNamespace=true
+      - CreateNamespace=true
